@@ -1250,11 +1250,8 @@
       var _getAvailableLabelEvents = function () {
         return [
           'click',
-          'dblclick',
-          'mousedown',
           'mouseover',
-          'mouseout',
-          'contextmenu'
+          'mouseout'
         ];
       };
       var genLabelEvents = function (leafletScope, logic, marker, name) {
@@ -1341,33 +1338,23 @@
       var _getAvailableMarkerEvents = function () {
         return [
           'click',
-          'dblclick',
-          'mousedown',
           'mouseover',
-          'mouseout',
-          'contextmenu',
-          'dragstart',
-          'drag',
-          'dragend',
-          'move',
-          'remove',
-          'popupopen',
-          'popupclose'
+          'mouseout'
         ];
       };
       var _getAvailablePathEvents = function () {
-        return [
-          'click',
-          'dblclick',
-          'mousedown',
-          'mouseover',
-          'mouseout',
-          'contextmenu',
-          'add',
-          'remove',
-          'popupopen',
-          'popupclose'
-        ];
+        return [];  /*return [
+            'click',
+            'dblclick',
+            'mousedown',
+            'mouseover',
+            'mouseout',
+            'contextmenu',
+            'add',
+            'remove',
+            'popupopen',
+            'popupclose'
+        ];*/
       };
       return {
         getAvailableMapEvents: function () {

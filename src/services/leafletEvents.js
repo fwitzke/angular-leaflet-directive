@@ -7,11 +7,11 @@ angular.module("leaflet-directive").factory('leafletEvents', function ($rootScop
     var _getAvailableLabelEvents = function() {
         return [
             'click',
-            'dblclick',
-            'mousedown',
+            //'dblclick',
+            //'mousedown',
             'mouseover',
             'mouseout',
-            'contextmenu'
+            //'contextmenu'
         ];
     };
 
@@ -107,23 +107,24 @@ angular.module("leaflet-directive").factory('leafletEvents', function ($rootScop
     var _getAvailableMarkerEvents = function() {
         return [
             'click',
-            'dblclick',
-            'mousedown',
+            //'dblclick',
+            //'mousedown',
             'mouseover',
             'mouseout',
-            'contextmenu',
-            'dragstart',
-            'drag',
-            'dragend',
-            'move',
-            'remove',
-            'popupopen',
-            'popupclose'
+            //'contextmenu',
+            //'dragstart',
+            //'drag',
+            //'dragend',
+            //'move',
+            //'remove',
+            //'popupopen',
+            //'popupclose'
         ];
     };
 
     var _getAvailablePathEvents = function() {
-        return [
+        return [];
+        /*return [
             'click',
             'dblclick',
             'mousedown',
@@ -134,7 +135,7 @@ angular.module("leaflet-directive").factory('leafletEvents', function ($rootScop
             'remove',
             'popupopen',
             'popupclose'
-        ];
+        ];*/
     };
 
     return {
