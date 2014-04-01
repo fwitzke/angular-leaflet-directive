@@ -19,44 +19,42 @@ angular.module("leaflet-directive").directive('bounds', function ($log, $timeout
                 return false;
             };
 
-            mapController.getMap().then(function(map) {
-                map.whenReady(function() {
-                    centerController.getCenter().then(function() {
-                        leafletScope.$on("boundsChanged", function(event) {
-                            var scope = event.currentScope;
-                            var bounds = map.getBounds();
-                            $log.debug("updated map bounds...", bounds);
-                            if (emptyBounds(bounds)) {
-                                return;
+            mapController.getMap().then(function (map) {
+                centerController.getCenter().then(function () {
+                    leafletScope.$on('boundsChanged', function (event) {
+                        var scope = event.currentScope;
+                        var bounds = map.getBounds();
+                        $log.debug('updated map bounds...', bounds);
+                        if (emptyBounds(bounds)) {
+                            return;
+                        }
+                        var newScopeBounds = {
+                            northEast: {
+                                lat: bounds._northEast.lat,
+                                lng: bounds._northEast.lng
+                            },
+                            southWest: {
+                                lat: bounds._southWest.lat,
+                                lng: bounds._southWest.lng
                             }
-                            var newScopeBounds = {
-                                northEast: {
-                                    lat: bounds._northEast.lat,
-                                    lng: bounds._northEast.lng
-                                },
-                                southWest: {
-                                    lat: bounds._southWest.lat,
-                                    lng: bounds._southWest.lng
-                                }
-                            };
-                            if (!angular.equals(scope.bounds, newScopeBounds)) {
-                                $log.debug("Need to update scope bounds.");
-                                scope.bounds = newScopeBounds;
-                            }
-                        });
-
+                        };
+                        if (!angular.equals(scope.bounds, newScopeBounds)) {
+                            $log.debug('Need to update scope bounds.');
+                            scope.bounds = newScopeBounds;
+                        }
+                    });
+                    map.whenReady(function () {
                         var shouldWatch = !isDefined(attrs.watchBounds) || attrs.watchBounds === 'true';
                         if (shouldWatch) {
-                            leafletScope.$watch('bounds', function(bounds) {
-                                $log.debug("updated bounds...", bounds);
+                            leafletScope.$watch('bounds', function (bounds) {
+                                $log.debug('updated bounds...', bounds);
                                 if (!isDefined(bounds)) {
                                     $log.error('[AngularJS - Leaflet] Invalid bounds');
                                     return;
                                 }
-
                                 var leafletBounds = createLeafletBounds(bounds);
                                 if (leafletBounds && !map.getBounds().equals(leafletBounds)) {
-                                    $log.debug("Need to update map bounds.");
+                                    $log.debug('Need to update map bounds.');
                                     map.fitBounds(leafletBounds);
                                 }
                             }, true);
