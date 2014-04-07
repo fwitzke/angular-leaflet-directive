@@ -1,5 +1,5 @@
 angular.module("leaflet-directive").directive('center',
-    function ($log, $q, $location, leafletMapDefaults, leafletHelpers, leafletBoundsHelpers) {
+    function ($log, $q, $location, leafletMapDefaults, leafletHelpers, leafletBoundsHelpers, $rootScope) {
 
     var isDefined     = leafletHelpers.isDefined,
         isNumber      = leafletHelpers.isNumber,
@@ -78,6 +78,7 @@ angular.module("leaflet-directive").directive('center',
                         };
                         scope.bounds = newScopeBounds;
                     });
+                    $rootScope.$broadcast('boundsChanged');
                 } else if (!isDefined(centerModel)) {
                     $log.error('The "center" property is not defined in the main scope');
                     map.setView([defaults.center.lat, defaults.center.lng], defaults.center.zoom);

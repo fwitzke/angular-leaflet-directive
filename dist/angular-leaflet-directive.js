@@ -106,7 +106,8 @@
     'leafletMapDefaults',
     'leafletHelpers',
     'leafletBoundsHelpers',
-    function ($log, $q, $location, leafletMapDefaults, leafletHelpers, leafletBoundsHelpers) {
+    '$rootScope',
+    function ($log, $q, $location, leafletMapDefaults, leafletHelpers, leafletBoundsHelpers, $rootScope) {
       var isDefined = leafletHelpers.isDefined, isNumber = leafletHelpers.isNumber, isSameCenterOnMap = leafletHelpers.isSameCenterOnMap, safeApply = leafletHelpers.safeApply, isValidCenter = leafletHelpers.isValidCenter, isEmpty = leafletHelpers.isEmpty, isUndefinedOrEmpty = leafletHelpers.isUndefinedOrEmpty;
       var shouldInitializeMapWithBounds = function (bounds, center) {
         return isDefined(bounds) && !isEmpty(bounds) && isUndefinedOrEmpty(center);
@@ -174,6 +175,7 @@
                   };
                 scope.bounds = newScopeBounds;
               });
+              $rootScope.$broadcast('boundsChanged');
             } else if (!isDefined(centerModel)) {
               $log.error('The "center" property is not defined in the main scope');
               map.setView([
@@ -644,7 +646,8 @@
     '$timeout',
     'leafletHelpers',
     'leafletBoundsHelpers',
-    function ($log, $timeout, leafletHelpers, leafletBoundsHelpers) {
+    '$rootScope',
+    function ($log, $timeout, leafletHelpers, leafletBoundsHelpers, $rootScope) {
       return {
         restrict: 'A',
         scope: false,
@@ -682,6 +685,7 @@
               if (!angular.equals(scope.bounds, newScopeBounds)) {
                 $log.debug('Need to update scope bounds.');
                 scope.bounds = newScopeBounds;
+                $rootScope.$broadcast('boundsChanged');
               }
             });
             leafletScope.$watch('bounds', function (bounds) {
