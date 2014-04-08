@@ -685,7 +685,7 @@
               if (!angular.equals(scope.bounds, newScopeBounds)) {
                 $log.debug('Need to update scope bounds.');
                 scope.bounds = newScopeBounds;
-                $rootScope.$broadcast('boundsChanged');
+                $rootScope.$broadcast('boundsChanged', newScopeBounds);
               }
             });
             leafletScope.$watch('bounds', function (bounds) {
